@@ -1,0 +1,13 @@
+<div class="container">
+
+<% @addrs.each do |address| %>
+<div class="jumbotron">
+  Address => <%= address.address_types %> Address =>
+  Country : <%= address.country %><br>
+  State : <%= address.state %> <br>
+  City : <%= address.city %> <br>
+  Street_address : <%= address.street_address %>
+<br></div>
+
+<% end %></div>
+

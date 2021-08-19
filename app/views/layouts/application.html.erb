@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EMS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    
+
+  </head><div class = "container" align="center">
+         <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p></div>
+<% if employer_signed_in? %>
+  Logged in as <strong><%= current_employer.email %></strong>.
+  <%= link_to 'Edit profile', edit_employer_registration_path, :class => 'navbar-link' %> |
+  <%= link_to "Logout", destroy_employer_session_path, method: :delete, :class => 'navbar-link'  %>
+<% else %>
+  <%= link_to "Sign up", new_employer_registration_path, :class => 'navbar-link'  %> |
+  <%= link_to "Login", new_employer_session_path, :class => 'navbar-link'  %>
+<% end %>
+
+  <body>
+
+    <%= yield %>
+  </body>
+</html>

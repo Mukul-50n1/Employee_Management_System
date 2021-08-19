@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="card" align="">
+   
+<div class="col-lg-4 col-offset-9 centered">
+<%= form_with model: @employee  do |form| %>
+<div class="form-group">
+  First_Name => <%= form.text_field  :first_name ,{ class: "form-control", placeholder: "" }%>
+  <% @employee.errors.full_messages_for(:first_name).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+</div>
+
+  
+  <div class="form-group">
+  Last_Name => <%= form.text_field  :last_name , { class: "form-control", placeholder: "" } %>
+  <% @employee.errors.full_messages_for(:last_name).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+</div>
+  
+
+
+  <div class="form-group">
+  Email=> <%= form.text_field  :email , { class: "form-control", placeholder: "" } %>
+  <% @employee.errors.full_messages_for(:email).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+  </div>
+  
+  <div class="form-group">
+  Mobile=> <%= form.text_field  :mobile , { class: "form-control" , placeholder: "" } %>
+  <% @employee.errors.full_messages_for(:mobile).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+  </div>
+  D.o.B=> <%= form.date_field  :dob ,{ class: "form-control"}%>    <br>   ,
+ D.o.J=> <%= form.date_field  :doj ,{ class: "form-control"} %>
+  </div></div></div>
+  
+  Address=> 
+  <% a = 0 %>
+  
+  <br><%= form.fields_for :addresses  do |add| %>
+  <div align="center">
+  <div class="card" >
+   <div class="form-group" >
+<div class="col-lg-4 ">
+  
+  <div id =  "one<%=a%>" >
+  <span style="color:red">
+   <%= @lebel = "please write your #{@first} address here" %>
+ </span>
+  <div style="" align="center" >
+  <p>
+    <%#= add.label :address_types %>
+   <%#= add.select :address_types ,['Current','Permanent'],{include_blank: true}, placeholder: "address_types"%> 
+
+   <%= add.hidden_field :address_types ,:value => @first , include_blank: true %>
+    
+
+    <%#= add.label :country %><div>
+    <%= add.text_field :country ,{ class: "form-control",  placeholder: "country" }%>
+
+    <%#= add.label :state %>
+    <%= add.text_field :state , { class: "form-control" , placeholder: "State" }%>
+
+    <%#= add.label :city  %>
+    <%= add.text_field :city ,{ class: "form-control" , placeholder: "city" }%>              
+
+    <%#= add.label :Street_Address %>
+    <%= add.text_field :street_address ,{ class: "form-control",  placeholder: "street_address" }%>
+  
+  </p>
+</div>
+<% @first = "Permanent" %>
+
+  
+  <% if a == 0 %>
+    <div id= "boxe"> <%= add.check_box :chek ,:onchange => "func()" %>Do u have same permanent Address?
+  <% a = 1 %>
+  <% end %>
+  <% @first = "Permanent" %>
+</div></div></div> </div></div></div></div></div>
+  <% end %>
+  <%= form.submit 'Employee_Signup'%>
+  <% end %>
+</div>
+ 
+
+ <script type="text/javascript">
+   function func(){
+  document.getElementById('one1').hidden =! (document.getElementById('one1').hidden)
+};
+ </script>
+ </p></div></div></div></div></div></div></body></html>

@@ -1,0 +1,33 @@
+<h1>Employees =></h1>
+<%= link_to 'back' , employees_path %>
+
+<h3><%= link_to 'New_Employee?', new_employee_path  %></h3>
+<div class="container">
+<div class="table-responsive">
+<table border="solid" class = "table"><tr>
+	<th>ID</th>
+	<th>First_Name</th>
+	<th>Last_name</th>
+	<th>Email</th>
+	<th>Address</th>
+	<th>Mobile</th>
+	<th>D_o_B</th>
+	<th>D_o_J</th>
+</tr>
+
+<% @search.each do |epr| %>
+<tr>
+</tr><td> <%= epr.id %></td>
+<td>  <%= epr.first_name %></td>
+<td><%= epr.last_name %></td>
+<td>  <%= epr.email %></td>
+<td> <%= link_to 'address',"/adda.#{epr.id}"  %>
+<td>  <%= epr.mobile %></td>
+<td>  <%= epr.dob %></td>
+<td>  <%= epr.doj %></td>
+<td><%= link_to 'edit',edit_employee_path(epr.id) %></td>
+<td><%= link_to 'delete',employee_path(epr.id) ,method: :delete , data:{confirm: "are u sure?"}%></td>
+</tr>
+<% end %>
+</table>
+</div></td></table></div></div>
