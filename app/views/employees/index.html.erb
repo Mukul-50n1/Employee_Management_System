@@ -29,7 +29,12 @@
 
 <% @employees.each do |epr| %>
 <tr >
-</tr><td> <%= epr.id %></td>
+<td> <%= epr.id %></td>
+
+<% if epr.image.attached? %>
+  <%= image_tag  url_for(epr.image) ,:size => "260x180"%>
+  <% end %>
+
 <td>  <%= epr.first_name %></td>
 <td><%= epr.last_name %></td>
 <td>  <%= epr.email %></td>
@@ -40,7 +45,7 @@
 <td ><%= link_to 'edit',edit_employee_path(epr.id) %></td>
 
 <div>
-<td  ><button data-toggle="modal" data-target="#myModal"  >delete</button></td>
+<td  ><button data-toggle="modal" data-target="#myModal"  >delete</button></td></tr>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     

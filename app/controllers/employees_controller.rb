@@ -25,10 +25,12 @@
     #@employee.addresses.build
     2.times { @employee.addresses.new }
     @first = "Current"
+    #@employee.image.attach(params[:image])
   end
 
   def create
     @employee = current_employer.employees.create(param_employee)
+   # @employee.image.attach(params[:image])
     if @employee.save   
       flash[:notice] = "#{@employee.first_name} is created"
       redirect_to '/employees'
@@ -81,8 +83,9 @@
         #params[:employee][:addresses_attributes][:'1'] = params[:employee][:addresses_attributes][:'0']
     end
     
+    
     params.require(:employee).permit(:first_name, :last_name , :email, :dob ,:mobile,
-     :doj, addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
+     :doj,:image, addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
     
   end
   

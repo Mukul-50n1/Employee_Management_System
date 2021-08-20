@@ -2,6 +2,7 @@ class Employee < ApplicationRecord
 	belongs_to :employer
 	has_many :addresses ,dependent: :destroy #,inverse_of: :address 
 	accepts_nested_attributes_for :addresses , allow_destroy: true  ,reject_if: :checking?
+	has_one_attached :image#seee this line
 
 	validates :first_name , :last_name ,presence: true ,format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,
     message: "only allows letters" }
