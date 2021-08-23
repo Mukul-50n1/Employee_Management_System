@@ -21,6 +21,7 @@
   end
 
   def new
+    
     @employee = Employee.new
     #@employee.addresses.build
     2.times { @employee.addresses.new }
@@ -29,7 +30,12 @@
   end
 
   def create
-    @employee = current_employer.employees.create(param_employee)
+    @desi = Designation.find_by_desig_name(params[:employee][:designations][:desig_name])
+
+    @employee = current_employer.employees.new(param_employee)
+    @employee.designation_id = @desi.id
+    #@employee = current_employer.@employee.build
+  
    # @employee.image.attach(params[:image])
     if @employee.save   
       flash[:notice] = "#{@employee.first_name} is created"
@@ -85,7 +91,10 @@
     
     
     params.require(:employee).permit(:first_name, :last_name , :email, :dob ,:mobile,
-     :doj,:image, addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
+     :doj,:image,designation: [:desig_name] ,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
+    #params.require(:@designation).permit(:desig_name )
+    
+  
     
   end
   

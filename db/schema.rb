@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_20_100846) do
+ActiveRecord::Schema.define(version: 2021_08_23_034150) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,6 +53,12 @@ ActiveRecord::Schema.define(version: 2021_08_20_100846) do
     t.index ["employee_id"], name: "index_addresses_on_employee_id"
   end
 
+  create_table "designations", force: :cascade do |t|
+    t.string "desig_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "email"
     t.integer "mobile"
@@ -63,6 +69,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_100846) do
     t.integer "employer_id", null: false
     t.string "first_name"
     t.string "last_name"
+    t.integer "designation_id"
     t.index ["employer_id"], name: "index_employees_on_employer_id"
   end
 

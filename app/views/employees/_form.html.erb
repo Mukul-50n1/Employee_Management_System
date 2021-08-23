@@ -92,6 +92,9 @@
   <% @first = "Permanent" %>
 </div></div></div> </div></div></div></div></div>
   <% end %>
+  <br><%= form.fields_for :designations  do |desig| %>
+<%= desig.select :desig_name , Designation.all.collect{|p| [p.desig_name]} , placeholder: "Designation" %>
+<% end %>
   <%= form.file_field :image %>
  <div class="btn btn-primary"> <%= form.submit 'Employee_Signup'%></div>
   <% end %>

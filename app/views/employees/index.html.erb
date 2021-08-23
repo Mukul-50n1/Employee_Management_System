@@ -11,40 +11,34 @@
 <body>
 
 <%= render  'research' %>
+<h1>Employees =></h1>
+<h2><%= link_to 'Designations',designations_path %></h2>
+<h3><%= link_to 'Add_New_Employee?', new_employee_path  %></h3>
 
 <div class="container">
-<h1>Employees =></h1>
-<h3><%= link_to 'Add_New_Employee?', new_employee_path  %></h3>
-<div class="table-responsive" >
-<table class = "table" border="solid"><tr>
-	<th>ID</th>
-	<th>First_Name</th>
-	<th>Last_Name</th>
-	<th>Email</th>
-	<th>Address</th>
-	<th>Mobile</th>
-	<th>D_o_B</th>
-	<th>D_o_J</th>
-</tr>
+  <div class="row">
+    <% @employees.each do |epr| %>
+    <div class="col-md-3">
+      <div class="card">
+        <% if epr.image.attached? %>
+          <%= image_tag  url_for(epr.image) ,:size => "260x180"%>
+        <% end %>
+        <div class="card-title">
+          <%= epr.id %>
+          Name = <%= epr.first_name %>
+                 <%= epr.last_name %>
+        <div class="card-text">
+          Email = <%= epr.email %><br>
+          <%# debugger %>
+          <% @de = Designation.find_by_id(epr.designation_id) %>
+          
+          Designation = <%= @de.desig_name %><br>
 
-<% @employees.each do |epr| %>
-<tr >
-<td> <%= epr.id %></td>
-
-<% if epr.image.attached? %>
-  <%= image_tag  url_for(epr.image) ,:size => "260x180"%>
-  <% end %>
-
-<td>  <%= epr.first_name %></td>
-<td><%= epr.last_name %></td>
-<td>  <%= epr.email %></td>
-<td> <%= link_to 'address' ,"/adda.#{epr.id}" %> </td>
-<td>  <%= epr.mobile %></td>
-<td>  <%= epr.dob %></td>
-<td>  <%= epr.doj %></td>
-<td ><%= link_to 'edit',edit_employee_path(epr.id) %></td>
-
-<div>
+          Mobile = <%= epr.mobile %><br>
+          Date_of_birth = <%= epr.dob %><br>
+          Date_of_Joining = <%= epr.doj %>,<%= link_to 'address' ,"/adda.#{epr.id}" %> 
+          <%= link_to 'edit',edit_employee_path(epr.id) %>
+          <div>
 <td  ><button data-toggle="modal" data-target="#myModal"  >delete</button></td></tr>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -66,14 +60,8 @@
       </div>
       
     </div>
-  </div>
-</div>
-
-</tr>
+  </div></div></div></div></div></div>
 <% end %>
+</div></div>
 
-</table></div></div>
-
-  
-</div>
-</script>
+          

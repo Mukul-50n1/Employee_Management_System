@@ -18,16 +18,27 @@
   </head><div class = "container" align="center">
          <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p></div>
-<% if employer_signed_in? %>
-  Logged in as <strong><%= current_employer.email %></strong>.
-  <%= link_to 'Edit profile', edit_employer_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_employer_session_path, method: :delete, :class => 'navbar-link'  %>
+
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a href="#" class="navbar-brand">Employee-Management-System</a>
+        
+                <div class="navbar">
+                  <% if employer_signed_in? %>
+                    <div class="nav-item">  
+           <strong><%= current_employer.name %></strong>.
+  <%= link_to 'Edit profile', edit_employer_registration_path %> |
+  <%= link_to "Logout", destroy_employer_session_path, method: :delete  %>
 <% else %>
   <%= link_to "Sign up", new_employer_registration_path, :class => 'navbar-link'  %> |
   <%= link_to "Login", new_employer_session_path, :class => 'navbar-link'  %>
-<% end %>
+<% end %><div class="nav-item nav-link">
+                    <%= link_to 'Add_New_Employee?', new_employee_path  %></div>
+                  </div></nav>
 
-  <body>
+                    
+
 
     <%= yield %>
   </body>

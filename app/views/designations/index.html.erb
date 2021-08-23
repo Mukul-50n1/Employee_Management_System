@@ -1,0 +1,8 @@
+<%= link_to 'new_designation' ,new_designation_path %><br>
+<%= link_to 'Back_to employees' ,employees_path %>
+<div class="conrtainer">
+	<div class="row">
+	<h1>	Designations =></h1>
+ <% @designations.each do |desi| %>Designation_id =><%= desi.id %><br>
+   Designation_name => <%= desi.desig_name %><%= link_to 'edit' ,edit_designation_path(desi.id) %> ,<%= link_to 'delete',designation_path(desi.id) ,method: :delete ,data: {confirm: "are u sure?"} %><br>
+<% end %></div></div>

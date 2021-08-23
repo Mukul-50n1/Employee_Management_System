@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "employees#index"
   resources :employers
   resources :employees
+  resources :designations
   get "search" ,to: "employees#search"
   get "adda.(:id)" ,to: "employees#adda"
 end
