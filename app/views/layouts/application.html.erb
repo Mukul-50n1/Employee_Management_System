@@ -27,7 +27,7 @@
                 <div class="navbar">
                   <% if employer_signed_in? %>
                     <div class="nav-item">  
-           <strong><%= current_employer.name %></strong>.
+   <strong style="color:red"><%= current_employer.name %></strong><br>
   <%= link_to 'Edit profile', edit_employer_registration_path %> |
   <%= link_to "Logout", destroy_employer_session_path, method: :delete  %>
 <% else %>

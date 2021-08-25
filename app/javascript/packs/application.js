@@ -17,6 +17,14 @@ function func(){
 document.getElementById('one1').hidden =! (document.getElementById('one1').hidden)
 };
 
+function mouseIn(){
+    document.getElementById("demo").style.color = red;
+}
+
+function mouseOut(){
+    document.getElementById("demo").style.color = Blue;
+}
+
 // app/javascript/packs/application.js
 
 require("bootstrap")

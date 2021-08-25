@@ -16,7 +16,7 @@ class Employee < ApplicationRecord
 	validates :email , presence: true ,uniqueness: true
 	#validates :password , confirmation: true,presence: true 
 	#validates :password_confirmation ,presence: true
-
+	
 	private
 	def checking?(attr)
 		attr['country'].blank? and attr['state'].blank?  and attr['city'].blank? and attr['street_address'].blank?

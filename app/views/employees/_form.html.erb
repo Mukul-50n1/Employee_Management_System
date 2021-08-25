@@ -93,7 +93,8 @@
 </div></div></div> </div></div></div></div></div>
   <% end %>
   <br><%= form.fields_for :designations  do |desig| %>
-<%= desig.select :desig_name , Designation.all.collect{|p| [p.desig_name]} , placeholder: "Designation" %>
+<%= desig.select :id , options_for_select(Designation.all.collect{|p| [p.desig_name,p.id]}) , placeholder: "Designation" %>
+<%#= desig.select :user_id, options_for_select(@users.collect { | user | [user.name, user.id] }, @user.id), {}, {} %>
 <% end %>
   <%= form.file_field :image %>
  <div class="btn btn-primary"> <%= form.submit 'Employee_Signup'%></div>

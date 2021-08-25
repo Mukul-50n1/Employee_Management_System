@@ -30,10 +30,9 @@
   end
 
   def create
-    @desi = Designation.find_by_desig_name(params[:employee][:designations][:desig_name])
-
+    #@desi = Designation.find_by_desig_name(params[:employee][:designations][:desig_name])
     @employee = current_employer.employees.new(param_employee)
-    @employee.designation_id = @desi.id
+    @employee.designation_id = params[:employee][:designations][:id]
     #@employee = current_employer.@employee.build
   
    # @employee.image.attach(params[:image])
@@ -70,8 +69,14 @@
   end
 
   def destroy
+    @identity = @employee.id
+
     @employee.destroy
-    redirect_to '/employees'
+    @employees = current_employer.employees
+    #redirect_to '/employees'
+    respond_to do |format|
+      format.js 
+    end
   end
 
   def adda
@@ -84,18 +89,14 @@
     
     if params[:employee][:addresses_attributes][:'0'][:"chek"] == "1"
         params[:employee][:addresses_attributes][:'1'][:country] = params[:employee][:addresses_attributes][:'0'][:country]
+        params[:employee][:addresses_attributes][:'1'][:state] = params[:employee][:addresses_attributes][:'0'][:state]
         params[:employee][:addresses_attributes][:'1'][:city] = params[:employee][:addresses_attributes][:'0'][:city]
         params[:employee][:addresses_attributes][:'1'][:street_address] = params[:employee][:addresses_attributes][:'0'][:street_address]
         #params[:employee][:addresses_attributes][:'1'] = params[:employee][:addresses_attributes][:'0']
     end
-    
-    
     params.require(:employee).permit(:first_name, :last_name , :email, :dob ,:mobile,
-     :doj,:image,designation: [:desig_name] ,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
+     :doj,:image,designation: [:id] ,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
     #params.require(:@designation).permit(:desig_name )
-    
-  
-    
   end
   
   def employer_check
