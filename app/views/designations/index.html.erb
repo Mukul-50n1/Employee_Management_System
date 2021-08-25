@@ -1,8 +1,11 @@
-<%= link_to 'new_designation' ,new_designation_path %><br>
-<%= link_to 'Back_to employees' ,employees_path %>
+<h3><%= link_to 'new_designation' ,new_designation_path %></h3><br>
+<h3><%= link_to 'Back_to employees' ,employees_path %></h3>
 <div class="conrtainer">
 	<div class="row">
 	<h1>	Designations =></h1>
- <% @designations.each do |desi| %>Designation_id =><%= desi.id %><br>
-   Designation_name => <%= desi.desig_name %><%= link_to 'edit' ,edit_designation_path(desi.id) %> ,<%= link_to 'delete',designation_path(desi.id) ,method: :delete ,data: {confirm: "are u sure?"} %><br>
+ <% @designations.each do |desi| %>
+ <div style="border:solid;">
+ <h4>Designation_id =><%= desi.id %></h4><br>
+  <h4> Designation_name => <%= desi.desig_name %></h4><%= link_to 'edit' ,edit_designation_path(desi.id) %> <%= link_to 'delete',designation_path(desi.id) ,method: :delete ,data: {confirm: "are u sure?"} %><br>
+</div><br><br>
 <% end %></div></div>

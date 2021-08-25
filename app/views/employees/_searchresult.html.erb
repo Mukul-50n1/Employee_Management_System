@@ -19,7 +19,7 @@
           
           Mobile = <%= epr.mobile %><br>
           Date_of_birth = <%= epr.dob %><br>
-          Date_of_Joining = <%= epr.doj %>,<%= link_to 'address' ,"/adda.#{epr.id}" %> 
+          Date_of_Joining = <%= epr.doj %>,<%= link_to 'address' ,adres_path(epr.id) %> 
           <%= link_to 'edit',edit_employee_path(epr.id) %>
           <div>
 <td  ><button data-toggle="modal" data-target="#myModal"  >delete</button></td></tr>

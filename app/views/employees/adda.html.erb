@@ -3,10 +3,13 @@
 <% @addrs.each do |address| %>
 <div class="jumbotron">
   Address => <%= address.address_types %> Address =>
+  ID: <%= address.id %><br>
   Country : <%= address.country %><br>
   State : <%= address.state %> <br>
   City : <%= address.city %> <br>
   Street_address : <%= address.street_address %>
+  <%= link_to 'edit' ,edit_address_path(address.id) %>
+  <%= link_to 'delete' ,address_path(address.id) ,method: :delete ,data: {confirm: "Are You Sure" }%>
 <br></div>
 
 <% end %></div>

@@ -58,9 +58,9 @@
   end
 
   def update
-
-    if @employee = current_employer.employees.find(params[:id])
-       @employee.update(param_employee)   
+    
+    @employee = current_employer.employees.find(params[:id])
+    if @employee.update(params.require(:employee).permit(:first_name,:last_name,:mobile,:email,:dob,:doj))   
        flash[:notice] = "#{@employee.first_name} is updated" 
        redirect_to '/'
     else 
@@ -81,6 +81,10 @@
 
   def adda
     @addrs  = @employee.addresses
+  end
+
+  def grouping
+    @group = current_employer.employees.group("designation_id")
   end
 
   private

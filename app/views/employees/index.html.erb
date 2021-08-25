@@ -12,17 +12,17 @@
 
 <%= render  'research' %>
 <h1 >Employees =></h1>
-<h2><%= link_to 'Designations',designations_path %></h2>
+<h2><%= link_to 'Designations',designations_path %></h2> or <h3> <%= link_to "designation_group" , employees_grouping_path %> </h3>
 <h3><%= link_to 'Add_New_Employee?', new_employee_path  %></h3>
 
 <div class="container">
   <div class="row">
-    <% a = 0 %>
+    
     <% @employees.each do |epr| %>
     
     <div class="col-md-3" id="demo<%=epr.id%>" onmouseover="mouseIn(this.id)" onmouseout="mouseOut(this.id)">
       <div id="demo<%=epr.id%>"  >
-        <% a = a + 1 %>
+    
         <% if epr.image.attached? %>
           <%= image_tag  url_for(epr.image) ,:size => "260x180" %>
         <% end %>
@@ -42,21 +42,21 @@
         </div>
 
           Date_of_birth = <%= epr.dob %><br>
-          Date_of_Joining = <%= epr.doj %>,<%= link_to 'address' ,"/adda.#{epr.id}" %> 
+          Date_of_Joining = <%= epr.doj %>,<%= link_to 'address' ,adres_path(epr.id) %> 
           <%= link_to 'edit',edit_employee_path(epr.id) %>
-          <%= link_to 'Delete' ,employee_path(epr.id),method: :delete,data: {confirm: "Are U sure ?"} ,remote: true %>
+          <%= link_to 'Delete' ,employee_path(epr.id),method: :delete,remote: true %>
           
           <div>
 
-         <button data-toggle="modal" data-target="#myModal"  >delete</button>
+         <!-- <button data-toggle="modal" data-target="#myModal"  >delete</button>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
-      <!-- Modal content-->
+       
       <div class="modal-content">
         <div class="modal-header">
           <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-          <h4 class="modal-title">Are You Sure ?</h4>
+          <!-- <h4 class="modal-title">Are You Sure ?</h4>
         </div>
         <div class="modal-body">
           <p>You are destroying the the employees detail...</p>
@@ -65,11 +65,11 @@
           <button type="button" class="btn btn-default" ><%= link_to 'No' ,employees_path %></button>
         
           <button type="button" class="btn btn-default" ><%= link_to 'Delete' ,employee_path(epr.id),method: :delete %></button>
-        </div>
+        </div> --> 
       </div>
       
     </div>
-  </div></div></div></div></div></div>
+  </div></div></div><!-- </div></div></div> -->
 <% end %>
 </div></div>
 <script type="text/javascript">

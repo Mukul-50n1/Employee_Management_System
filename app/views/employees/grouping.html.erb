@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<h2><%= link_to 'All_Designations' ,designations_path %> </h2>
+<h2><%= link_to 'Back_to_Employees' ,employees_path %></h2>
+
+
+
+<div id = "accordion">
+<% @group.each do |gro| %>
+
+<% group = Designation.find(gro.designation_id) %>
+
+<h1 id = "collap"><%= group.desig_name %>s =></h1>
+
+ <div>
+ <table style="border:solid;" align="center" id="group">
+ <h2>	<tr align="center" style="column-gap: 400px;">
+  <th>ID</th>
+  <th><h1>Name</h1></th>
+		
+		<th><h1>Email</h1></th>
+		<th><h1>mobile</h1></th>
+		
+	</tr></h2>
+   <h3><% group.employees.each do |employee| %>
+  <tr><td><%= employee.id %></td>
+   <td><h4> <%= employee.first_name %>
+    <%= employee.last_name %></h4></td>
+   <td> <h4> <%= employee.email %> </h4></td>
+   <td><h4> <%= employee.mobile %> </h4> </td>
+    <td><h4> <%= link_to 'edit',edit_employee_path(employee.id) %> </h4></td>
+  </tr>
+  <% end %>
+  </h3>
+
+ </table>
+</div>
+
+
+<% end %>
+</div>
+<style type="text/css">
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  #collap{
+    font-size: 30px;
+  }
+  table{
+    width: 100%;
+  }
+}
+</style>
+<script type="text/javascript">
+  $( function() {
+    $( "#accordion" ).accordion();
+  } );
+</script>
