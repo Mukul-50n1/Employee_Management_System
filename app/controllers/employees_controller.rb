@@ -30,9 +30,10 @@
   end
 
   def create
-    #@desi = Designation.find_by_desig_name(params[:employee][:designations][:desig_name])
+    #@desig = Designation.find_by_desig_name(params[:employee][:designations][:desig_name])
+
     @employee = current_employer.employees.new(param_employee)
-    @employee.designation_id = params[:employee][:designations][:id]
+    #@employee.designation_id = params[:employee][:designation_id]
     #@employee = current_employer.@employee.build
   
    # @employee.image.attach(params[:image])
@@ -90,7 +91,6 @@
   private
 
   def param_employee
-    
     if params[:employee][:addresses_attributes][:'0'][:"chek"] == "1"
         params[:employee][:addresses_attributes][:'1'][:country] = params[:employee][:addresses_attributes][:'0'][:country]
         params[:employee][:addresses_attributes][:'1'][:state] = params[:employee][:addresses_attributes][:'0'][:state]
@@ -98,8 +98,9 @@
         params[:employee][:addresses_attributes][:'1'][:street_address] = params[:employee][:addresses_attributes][:'0'][:street_address]
         #params[:employee][:addresses_attributes][:'1'] = params[:employee][:addresses_attributes][:'0']
     end
+    
     params.require(:employee).permit(:first_name, :last_name , :email, :dob ,:mobile,
-     :doj,:image,designation: [:id] ,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
+     :doj,:designation_id ,:image,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
     #params.require(:@designation).permit(:desig_name )
   end
   

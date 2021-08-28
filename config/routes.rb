@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :designations
   resources :addresses ,except: [:show]
   get "search" ,to: "employees#search"
+  
   get "employees/address(/:id)" ,to: "employees#adda" ,as: 'adres'
 
   get "employees/grouping" ,to: "employees#grouping" 

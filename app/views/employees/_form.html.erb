@@ -5,16 +5,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+  <form name="myForm" action="/employees" onsubmit="return Validation()"  method="post" enctype="multipart/form-data">
 <div class="card" align="">
    
 <div class="col-lg-4 col-offset-9 centered">
 <%= form_with model: @employee  do |form| %>
-<div class="form-group">
-  First_Name => <%= form.text_field  :first_name ,{ class: "form-control", placeholder: "" }%>
+
+
+<div class="form-group" >
+  First_Name => <%= form.text_field  :first_name ,{ class: "form-control"}%>
+
+  <span style="font-color:red;" id = "fspan"></span> 
+
   <% @employee.errors.full_messages_for(:first_name).each do |message| %>
     <div><%= message %></div>
   <% end %>
@@ -22,8 +28,11 @@
 
   
   <div class="form-group">
-  Last_Name => <%= form.text_field  :last_name , { class: "form-control", placeholder: "" } %>
+  Last_Name => <%= form.text_field  :last_name , { class: "form-control"}%>
+
+  <span id="lspan"></span>
   <% @employee.errors.full_messages_for(:last_name).each do |message| %>
+
     <div><%= message %></div>
   <% end %>
 </div>
@@ -31,20 +40,26 @@
 
 
   <div class="form-group">
-  Email=> <%= form.text_field  :email , { class: "form-control", placeholder: "" } %>
+  Email=> <%= form.email_field  :email , { class: "form-control"}%>
+  <span id="espan"></span>
   <% @employee.errors.full_messages_for(:email).each do |message| %>
     <div><%= message %></div>
   <% end %>
   </div>
   
   <div class="form-group">
-  Mobile=> <%= form.text_field  :mobile , { class: "form-control" , placeholder: "" } %>
+  Mobile=> <%= form.text_field  :mobile , { class: "form-control"  } %>
+  <span id="mspan"> </span>
   <% @employee.errors.full_messages_for(:mobile).each do |message| %>
     <div><%= message %></div>
   <% end %>
   </div>
-  D.o.B=> <%= form.date_field  :dob ,{ class: "form-control"}%>    <br>   ,
+
+  D.o.B=> <%= form.date_field  :dob ,{ class: "form-control"}%>  
+  <span id="dobspan"> </span>
+    <br>   ,
  D.o.J=> <%= form.date_field  :doj ,{ class: "form-control"} %>
+ <span id="dojspan"></span>
   </div></div></div>
   
   Address=> 
@@ -92,19 +107,105 @@
   <% @first = "Permanent" %>
 </div></div></div> </div></div></div></div></div>
   <% end %>
-  <br><%= form.fields_for :designations  do |desig| %>
-<%= desig.select :id , options_for_select(Designation.all.collect{|p| [p.desig_name,p.id]}) , placeholder: "Designation" %>
+  <br><%#= form.fields_for :designations  do |desig| %>
+  <div class="form-group">
+<%= form.select :designation_id , options_for_select(Designation.all.collect{|p| [p.desig_name,p.id]}) %>
+<span id="desispan"></span>
+ </div>
+<br><br>
 <%#= desig.select :user_id, options_for_select(@users.collect { | user | [user.name, user.id] }, @user.id), {}, {} %>
-<% end %>
-  <%= form.file_field :image %>
- <div class="btn btn-primary"> <%= form.submit 'Employee_Signup'%></div>
+<%# end %>
+  <%= form.file_field :image %><br><br>
+  <%= form.submit 'Employee_Signup' , data: { disable_with: false }%>
   <% end %>
 </div>
- 
-
+ </form>
+</p></div></div></div></div></div></div>
  <script type="text/javascript">
+ 
    function func(){
   document.getElementById('one1').hidden =! (document.getElementById('one1').hidden)
 };
+
+  function Validation(){
+    
+    var f = document.getElementById("employee_first_name").value;
+    var l = document.getElementById("employee_last_name").value;
+    var num = document.getElementById("employee_mobile").value;
+    var mail = document.getElementById("employee_email").value;
+    var did = document.getElementById("employee_designation_id").value;
+    var d = parseInt(did)
+    var e_valid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    if ((f == "") || (f.length > 15)) {
+      document.getElementById('fspan').innerHTML = "First name is required in less than 15 length"
+      alert('name is required')
+      return false
+    }
+
+    if (/^[A-Za-z\s]+$/.test(f)){
+      document.getElementById('fspan').innerHTML = "correct first name"
+    }else {
+      document.getElementById('fspan').innerHTML = "plz dont write any  symbol and numbers(123)"
+       alert("name  will not accept any whitespace'_' any symbol'@$'")
+    }
+
+    if (l == ""){
+      document.getElementById('lspan').innerHTML = "last name is required"
+      alert('last name is required')
+      return false
+    }
+
+    if (/^[A-Za-z]+$/.test(l)){
+      document.getElementById('lspan').innerHTML = "correct last name"
+    }else {
+      document.getElementById('lspan').innerHTML = "plz dont write any symbol and any whitespace and numbers(123)"
+       alert("last name  will not accept any whitespace'_' any symbol'@$'")
+    }
+
+
+    if ( (num.length != 10) || (num == "" )) {
+      document.getElementById('mspan').innerHTML = "mobile_number can  be in 10 number";
+      alert('mobile is 10 digit like 4564655544')
+      return false
+    };
+    
+    if (/^[0-9]{1,10}$/.test(num)){
+      document.getElementById('mspan').innerHTML = "correct mobile number "
+    }else {
+      document.getElementById('mspan').innerHTML = "plz dont write any symbol and letter and whitespace "
+       alert("mobile  will  accept only 10 numbers")
+    }
+
+    if (mail == ""){
+      document.getElementById('espan').innerHTML = "email is required"
+      alert('email is required')
+      return false
+    };
+
+    if (e_valid.test(mail)){
+      document.getElementById('espan').innerHTML = "correct email address "
+    }else {
+      document.getElementById('espan').innerHTML = "Invalid Email"
+      alert("plz write correct email like 'demo78@dummy.com'")
+      return false
+    }
+
+    // if (did == ''){
+    //   document.getElementById('desispan').innerHTML = "please select correct designation"
+    //   return false
+    // }
+    
+    
+    var d_id =   <%= raw  Designation.ids.to_a %>
+    if (d_id.includes(d)){
+      document.getElementById('desispan').innerHTML = "correct designation"
+      
+    }else{
+      document.getElementById('desispan').innerHTML = "select correct designation"
+      alert('wrong desination')
+      return false
+    }
+}
+  
  </script>
- </p></div></div></div></div></div></div></body></html>
+ </body></html>
