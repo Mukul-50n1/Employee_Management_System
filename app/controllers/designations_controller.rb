@@ -1,4 +1,5 @@
 class DesignationsController < ApplicationController
+  before_action :authenticate_employer!
   def index 
     @designations =  Designation.all
   end
@@ -11,9 +12,9 @@ class DesignationsController < ApplicationController
     @designation = Designation.create(param_designation)
     if @designation.save
       redirect_to '/designations'
-	else
-	  render 'new'
-	end
+	  else
+	    render 'new'
+	  end
   end
   def edit
   	@designation = Designation.find(params[:id])

@@ -20,8 +20,7 @@
     #@employee = current_employer.employees
   end
 
-  def new
-    
+  def new   
     @employee = Employee.new
     #@employee.addresses.build
     2.times { @employee.addresses.new }

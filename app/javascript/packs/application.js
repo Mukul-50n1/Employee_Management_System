@@ -7,31 +7,32 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+ujs.start()
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+import '../stylesheets/application'
 
 function func(){
 document.getElementById('one1').hidden =! (document.getElementById('one1').hidden)
 };
 
-function mouseIn(){
-    document.getElementById("demo").style.color = red;
-}
-
-function mouseOut(){
-    document.getElementById("demo").style.color = Blue;
-}
-
-// app/javascript/packs/application.js
-
-require("bootstrap")
-import "../stylesheets/application";
 document.addEventListener("turbolinks:load", function() {
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-        $('[data-toggle="popover"]').popover()
-    })
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="popover"]').popover()
+  })
+})
+
+window.addEventListener("load", () => {
+  alert("page has loaded!");
+});
+debugger
+check = document.getElementById('boxe');
+check.addEventListener('change',e =>{
+  func()
+
+
 })
