@@ -1,5 +1,5 @@
 <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  
+
 <form name="myForm" action="/employees" onsubmit="return Validation()"  method="post" enctype="multipart/form-data">
 <div class="card" align="">
    
@@ -55,14 +55,14 @@
   
   Address=> 
   <% a = 0 %>
-  
-  <br><%= form.fields_for :addresses  do |add| %>
   <div align="center">
   <div class="card" >
    <div class="form-group" >
+  <br><%= form.fields_for :addresses  do |add| %>
+  
 <div class="col-lg-4 ">
   
-  <div id =  "one<%=a%>" >
+  <div id =  "one<%=a%>">>
   <span style="color:red">
    <%= @lebel = "please write your #{@first} address here" %>
  </span>
@@ -87,32 +87,31 @@
     <%= add.text_field :street_address ,{ class: "form-control",  placeholder: "street_address" }%>
   
   </p>
-</div>
+</div></div>
 <% @first = "Permanent" %>
 
   
   <% if a == 0 %>
-    <div id= "boxe"> <%= add.check_box :chek ,:onchange => "func()" %>Do u have same permanent Address?
+    <div id= "boxe"> <%= add.check_box :chek, class: "address-permanent" %>Do u have same permanent Address?</div>
   <% a = 1 %>
   <% end %>
   <% @first = "Permanent" %>
-</div></div></div> </div></div></div></div></div>
-  <% end %>
+</div></div></p>
+  <% end %></div></div>
   <br><%#= form.fields_for :designations  do |desig| %>
   <div class="form-group">
 <%= form.select :designation_id , options_for_select(Designation.all.collect{|p| [p.desig_name,p.id]}) %>
-<span id="desispan"></span>
- </div>
+<span id="desigspan"></span>
+ </div></p>
 <br><br>
 <%#= desig.select :user_id, options_for_select(@users.collect { | user | [user.name, user.id] }, @user.id), {}, {} %>
 <%# end %>
   <%= form.file_field :image %><br><br>
-  <%= form.submit 'Employee_Signup' , data: { disable_with: false }%>
+  <%= form.submit 'Employee_Signup' , data: { disable_with: false } %>
   <% end %>
+
+  <div id = "designation_ids"> <%= raw Designation.ids.to_a %></div>
 </div>
-</p></div></div></div></div></div></div>
 </form>
 
- <div id="test">
-  <h1>Hello world</h1>
-</div>
+ 

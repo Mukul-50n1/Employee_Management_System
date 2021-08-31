@@ -6,7 +6,7 @@ class Employee < ApplicationRecord
 	has_one_attached :image
 
 	belongs_to :designation
-	
+
 
 	validates :first_name , :last_name ,presence: true ,format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,
     message: "only allows letters" }

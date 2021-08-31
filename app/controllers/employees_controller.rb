@@ -99,7 +99,7 @@
     end
     
     params.require(:employee).permit(:first_name, :last_name , :email, :dob ,:mobile,
-     :doj,:designation_id ,:image,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:chek] )
+     :doj,:designation_id ,:image,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:_destroy , :chek] )
     #params.require(:@designation).permit(:desig_name )
   end
   
