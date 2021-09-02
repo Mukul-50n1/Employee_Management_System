@@ -1,6 +1,6 @@
   class EmployeesController < ApplicationController
     before_action :authenticate_employer!
-    before_action :employer_check ,only: [:edit ,:destroy,:adda]
+    before_action :employer_check ,only: [:edit ,:adda]
 
 
   def search
@@ -87,6 +87,17 @@
     @group = current_employer.employees.group("designation_id")
   end
 
+  def employeesDestroy
+    
+    @employee_ids = params[:index_array]
+    @id_size = params[:index_array].size
+    @employee = Employee.where(id: @employee_ids)
+    @employee.destroy_all
+    @employees = current_employer.employees
+    #redirect_to '/employees'
+    respond_to :js
+  end
+
   private
 
   def param_employee
@@ -108,3 +119,5 @@
   end
 
 end
+
+

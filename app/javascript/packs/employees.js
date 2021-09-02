@@ -1,19 +1,4 @@
 
-import $ from 'jquery'
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
-import "channels"
-require("jquery")
-
-
-document.addEventListener("turbolinks:load", function() {
-  $(function () {
-    // $('[data-toggle="tooltip"]').tooltip()
-    // $('[data-toggle="popover"]').popover()
-  })
-})
-
 $(function(){
  $("#employee_addresses_attributes_0_chek").on('change', function(){
    if ($('#employee_addresses_attributes_0_chek').is(':checked')){  

@@ -1,7 +1,9 @@
 class Employee < ApplicationRecord
 	belongs_to :employer
-	has_many :addresses ,dependent: :destroy #,inverse_of: :address 
+	has_many :addresses ,dependent: :delete_all #,inverse_of: :address 
 	accepts_nested_attributes_for :addresses , allow_destroy: true  ,reject_if: :checking?
+
+	acts_as_paranoid
 
 	has_one_attached :image
 

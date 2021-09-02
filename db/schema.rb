@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_034150) do
+ActiveRecord::Schema.define(version: 2021_09_01_141935) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 2021_08_23_034150) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "chek"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_addresses_on_deleted_at"
     t.index ["employee_id"], name: "index_addresses_on_employee_id"
   end
 
@@ -70,6 +72,8 @@ ActiveRecord::Schema.define(version: 2021_08_23_034150) do
     t.string "first_name"
     t.string "last_name"
     t.integer "designation_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_employees_on_deleted_at"
     t.index ["employer_id"], name: "index_employees_on_employer_id"
   end
 

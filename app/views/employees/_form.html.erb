@@ -114,4 +114,15 @@
 </div>
 </form>
 
- 
+ <script type="text/javascript">
+    $(function(){
+      $('#delete_button').click(function(){
+        var val = [];
+        $(':checkbox:checked').each(function(i){
+          val[i] = $(this).val();
+        });
+        console.log(val)
+      });
+    });
+
+ </script>

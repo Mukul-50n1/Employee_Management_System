@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "employees#index"
   resources :employers
-  resources :employees ,except: [:show]
+  resources :employees ,except: [:show] do
+    collection do
+      match "employeesDestroy" ,to: "employees#employeesDestroy" ,:via => :delete
+    end
+  end
   resources :designations
   resources :addresses ,except: [:show]
   get "search" ,to: "employees#search"

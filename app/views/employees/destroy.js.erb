@@ -1,5 +1,9 @@
 
 //document.querySelector("#demo" + <%=@identity%>).remove();
-$("#demo" + <%=@identity%>).remove()
+
+<%= @identify.each do |re| %>
+
+  $("#demo<%=re%>").remove();
+<% end %>
 
 

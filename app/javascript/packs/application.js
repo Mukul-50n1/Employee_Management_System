@@ -12,6 +12,7 @@ import "channels"
 require("jquery")
 
 require("packs/employees")
+require('packs/index')
 
 Rails.start()
 Turbolinks.start()
