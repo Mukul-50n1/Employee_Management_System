@@ -1,10 +1,12 @@
   class EmployeesController < ApplicationController
     before_action :authenticate_employer!
     before_action :employer_check ,only: [:edit ,:adda]
+   
 
 
   def search
-    @search = current_employer.employees.where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{params[:search]}%")
+    
+    @search = $currentemployees.where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{params[:search]}%")
     if @search.empty?
       flash[:notice] =  "result for '#{params[:search]}' is not found"
       redirect_to '/employees'
@@ -13,7 +15,13 @@
   end
 
   def index
-    @employees = current_employer.employees
+    
+    if (params[:designate].nil?  or  params[:designate] == '0')
+      @employees = current_employer.employees.all
+    else
+      @employees = current_employer.employees.where("designation_id IS :q" ,q: "#{params[:designate]}")
+    end
+   $currentemployees = @employees
   end
 
   def show

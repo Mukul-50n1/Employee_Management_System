@@ -16,6 +16,7 @@ class DesignationsController < ApplicationController
 	    render 'new'
 	  end
   end
+  
   def edit
   	@designation = Designation.find(params[:id])
   end

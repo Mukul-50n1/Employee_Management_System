@@ -89,7 +89,7 @@ $(function(){
       
     }else{
       $('#desigspan').html("select correct designation")
-      alert('wrong desination')
+      alert('wrong designation')
       return false
     }   
 });

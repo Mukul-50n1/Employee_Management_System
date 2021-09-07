@@ -1,6 +1,8 @@
+
+
 console.log(<%= raw @employee_ids %>)
 a = <%= raw @employee_ids %>
 
 for (let i = 0; i < <%= raw @id_size %>; i++) {
-  $('#demo'+a[i]).remove();
+  $('#record'+a[i]).remove();
 }

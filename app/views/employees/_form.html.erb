@@ -6,6 +6,9 @@
 <div class="col-lg-4 col-offset-9 centered">
 <%= form_with model: @employee  do |form| %>
 
+<%= form.file_field :image %><h6 style="color:blueviolet;">upload your image here.</h6><br>
+
+<%= form.select :designation_id , options_for_select(Designation.all.collect{|p| [p.desig_name,p.id]}) %>
 
 <div class="form-group" >
   First_Name => <%= form.text_field  :first_name ,{ class: "form-control"}%>
@@ -100,29 +103,16 @@
   <% end %></div></div>
   <br><%#= form.fields_for :designations  do |desig| %>
   <div class="form-group">
-<%= form.select :designation_id , options_for_select(Designation.all.collect{|p| [p.desig_name,p.id]}) %>
+
 <span id="desigspan"></span>
  </div></p>
 <br><br>
 <%#= desig.select :user_id, options_for_select(@users.collect { | user | [user.name, user.id] }, @user.id), {}, {} %>
 <%# end %>
-  <%= form.file_field :image %><br><br>
+  <br>
   <%= form.submit 'Employee_Signup' , data: { disable_with: false } %>
   <% end %>
 
   <div id = "designation_ids"> <%= raw Designation.ids.to_a %></div>
 </div>
 </form>
-
- <script type="text/javascript">
-    $(function(){
-      $('#delete_button').click(function(){
-        var val = [];
-        $(':checkbox:checked').each(function(i){
-          val[i] = $(this).val();
-        });
-        console.log(val)
-      });
-    });
-
- </script>
