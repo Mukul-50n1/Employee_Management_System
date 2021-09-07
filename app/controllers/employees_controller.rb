@@ -45,6 +45,8 @@
   
    # @employee.image.attach(params[:image])
     if @employee.save   
+      
+      EmployerMailer.with(employee: @employee).newEmployee.deliver
       flash[:notice] = "#{@employee.first_name} is created"
       redirect_to '/employees'
     else 
@@ -127,5 +129,3 @@
   end
 
 end
-
-
