@@ -1,4 +1,5 @@
 class Employee < ApplicationRecord
+	paginates_per 4
 	belongs_to :employer
 	has_many :addresses ,dependent: :delete_all #,inverse_of: :address 
 	accepts_nested_attributes_for :addresses , allow_destroy: true  ,reject_if: :checking?
@@ -18,7 +19,13 @@ class Employee < ApplicationRecord
 	validates :email , presence: true ,uniqueness: true
 	#validates :password , confirmation: true,presence: true 
 	#validates :password_confirmation ,presence: true
-	
+	# debugger
+	# scope :sea~rch_employee,-> (searchs){ where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "#{searchs}") }
+
+	def self.search_employee(search)
+     where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{search}%")    
+  end
+
 	private
 	def checking?(attr)
 		attr['country'].blank? and attr['state'].blank?  and attr['city'].blank? and attr['street_address'].blank?

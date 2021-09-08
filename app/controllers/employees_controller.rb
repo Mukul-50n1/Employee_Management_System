@@ -5,8 +5,7 @@
 
 
   def search
-    
-    @search = $currentemployees.where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{params[:search]}%")
+    @search = current_employer.employees.search_employee(params[:search])
     if @search.empty?
       flash[:notice] =  "result for '#{params[:search]}' is not found"
       redirect_to '/employees'
@@ -15,13 +14,13 @@
   end
 
   def index
-    
     if (params[:designate].nil?  or  params[:designate] == '0')
       @employees = current_employer.employees.all
     else
       @employees = current_employer.employees.where("designation_id IS :q" ,q: "#{params[:designate]}")
     end
-   $currentemployees = @employees
+    @employees = @employees.page(params[:page])
+    $currentemployees =  @employees
   end
 
   def show
@@ -45,7 +44,7 @@
   
    # @employee.image.attach(params[:image])
     if @employee.save   
-      
+
       EmployerMailer.with(employee: @employee).newEmployee.deliver
       flash[:notice] = "#{@employee.first_name} is created"
       redirect_to '/employees'
@@ -110,22 +109,17 @@
 
   private
 
-  def param_employee
-    if params[:employee][:addresses_attributes][:'0'][:"chek"] == "1"
-        params[:employee][:addresses_attributes][:'1'][:country] = params[:employee][:addresses_attributes][:'0'][:country]
-        params[:employee][:addresses_attributes][:'1'][:state] = params[:employee][:addresses_attributes][:'0'][:state]
-        params[:employee][:addresses_attributes][:'1'][:city] = params[:employee][:addresses_attributes][:'0'][:city]
-        params[:employee][:addresses_attributes][:'1'][:street_address] = params[:employee][:addresses_attributes][:'0'][:street_address]
-        #params[:employee][:addresses_attributes][:'1'] = params[:employee][:addresses_attributes][:'0']
-    end
-    
+  def param_employee    
+    permanent_address
     params.require(:employee).permit(:first_name, :last_name , :email, :dob ,:mobile,
      :doj,:designation_id ,:image,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:_destroy , :chek] )
     #params.require(:@designation).permit(:desig_name )
   end
   
-  def employer_check
-    @employee = Employee.find(params[:id])
+  def employer_check  
+    unless (current_employer.employees.find(params[:id])).blank?
+      @employee = current_employer.employees.find(params[:id])
+    end
   end
 
 end
