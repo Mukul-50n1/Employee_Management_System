@@ -1,7 +1,6 @@
 <div class="container"> 
-  
 <div class="row">
-    <% @employees.each  do |epr|  %>
+    <%  @employees.each do |epr|  %>
       <% @de = Designation.find_by_id(epr.designation_id) %>
       <div class="col-md-3"  id="record<%=epr.id%>" > 
         <div class="card" id="mouse<%= epr.id%>" onmouseover="mouseIn(this.id)" onmouseout="mouseOut(this.id)">

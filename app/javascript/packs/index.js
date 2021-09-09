@@ -29,15 +29,29 @@ $(function(){
 $(function(){
   $('#designations').change(function(){
     var f = $("#designations").val();
-    var token = $('meta[name=csrf-token]').attr('first_name')
+    var search = $("#searchbox").val();
     $.ajax({
           url: "/employees/",
           type: "GET", 
           dataType: "script",
-          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token',token)},
-          data: {"designate": f}
+         
+          data: {"designate": f , "search": search}
           // success: function(repsonse){...},
           // error: function(repsonse){...}           
     });
   })
 })
+
+$(document).ready(function(){
+  $('#searchbutton').click(function(){
+    var designate = $("#designations").val();
+    var search = $("#searchbox").val();
+    $.ajax({
+          url: "/employees/",
+          type: "GET", 
+          dataType: "script",
+         data: {"designate": designate , "search": search}                 
+    });
+  })
+})
+

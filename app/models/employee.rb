@@ -22,8 +22,12 @@ class Employee < ApplicationRecord
 	# debugger
 	# scope :sea~rch_employee,-> (searchs){ where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "#{searchs}") }
 
-	def self.search_employee(search)
-     where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{search}%")    
+	def self.search_employee(search)		
+      where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{search}%")    
+  end
+
+  def self.search_employee_with_designation(search , designate)
+  	where("designation_id IS :d AND first_name LIKE :q OR last_name LIKE :q OR email LIKE :q  " ,d: "#{designate}",q: "%#{search}%")
   end
 
 	private

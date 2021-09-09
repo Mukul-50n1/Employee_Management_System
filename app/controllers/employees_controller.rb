@@ -1,50 +1,27 @@
-  class EmployeesController < ApplicationController
-    before_action :authenticate_employer!
-    before_action :employer_check ,only: [:edit ,:adda]
-   
-
-
-  def search
-    @search = current_employer.employees.search_employee(params[:search])
-    if @search.empty?
-      flash[:notice] =  "result for '#{params[:search]}' is not found"
-      redirect_to '/employees'
-    end #rescue redirect_to "/employees"
-    #respond_to :js
-  end
+class EmployeesController < ApplicationController
+  before_action :authenticate_employer!
+  before_action :employer_check ,only: [:edit ,:adda ,:update]
 
   def index
-    if (params[:designate].nil?  or  params[:designate] == '0')
-      @employees = current_employer.employees.all
+    if params[:designate].nil?
+      @employees = current_employer.employees.search_employee(params[:search]).page(params[:page])
     else
-      @employees = current_employer.employees.where("designation_id IS :q" ,q: "#{params[:designate]}")
+      @employees = current_employer.employees.search_employee_with_designation(params[:search], params[:designate]).page(params[:page])
     end
-    @employees = @employees.page(params[:page])
-    $currentemployees =  @employees
   end
 
-  def show
-    #@employee = current_employer.employees
+  def show  
   end
 
   def new   
     @employee = Employee.new
-    #@employee.addresses.build
     2.times { @employee.addresses.new }
     @first = "Current"
-    #@employee.image.attach(params[:image])
   end
 
   def create
-    #@desig = Designation.find_by_desig_name(params[:employee][:designations][:desig_name])
-
     @employee = current_employer.employees.new(param_employee)
-    #@employee.designation_id = params[:employee][:designation_id]
-    #@employee = current_employer.@employee.build
-  
-   # @employee.image.attach(params[:image])
     if @employee.save   
-
       EmployerMailer.with(employee: @employee).newEmployee.deliver
       flash[:notice] = "#{@employee.first_name} is created"
       redirect_to '/employees'
@@ -53,33 +30,21 @@
     end
   end
 
-  # def edit
-  #   i = current_employer.employees.ids
-  #   a = (params[:id]).to_i
-  #   if i.include?a
-  #     @employee = Employee.find(params[:id])
-  #   else
-  #     #flash[:notice] => "You can't access other employees detail"
-  #     redirect_to '/employees'
-  #   end
-  # end
+
   def edit
   end
 
-  def update
-    
-    @employee = current_employer.employees.find(params[:id])
-    if @employee.update(params.require(:employee).permit(:first_name,:last_name,:mobile,:email,:dob,:doj))   
+  def update    
+    if @employee.update(param_employee_update)   
        flash[:notice] = "#{@employee.first_name} is updated" 
        redirect_to '/'
     else 
        render 'edit'
-    end rescue puts "error"
+    end 
   end
 
   def destroy
     @identity = @employee.id
-
     @employee.destroy
     @employees = current_employer.employees
     #redirect_to '/employees'
@@ -97,13 +62,11 @@
   end
 
   def employeesDestroy
-    
     @employee_ids = params[:index_array]
     @id_size = params[:index_array].size
     @employee = Employee.where(id: @employee_ids)
     @employee.destroy_all
     @employees = current_employer.employees
-    #redirect_to '/employees'
     respond_to :js
   end
 
@@ -113,9 +76,12 @@
     permanent_address
     params.require(:employee).permit(:first_name, :last_name , :email, :dob ,:mobile,
      :doj,:designation_id ,:image,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:_destroy , :chek] )
-    #params.require(:@designation).permit(:desig_name )
   end
   
+  def param_employee_update
+    params.require(:employee).permit(:first_name,:last_name,:mobile,:email,:dob,:doj)
+  end
+
   def employer_check  
     unless (current_employer.employees.find(params[:id])).blank?
       @employee = current_employer.employees.find(params[:id])
