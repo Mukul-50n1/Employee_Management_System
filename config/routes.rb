@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :employers
   resources :employees ,except: [:show] do
     collection do
-      match "employeesDestroy" ,to: "employees#employeesDestroy" ,:via => :delete
+      
+      delete "employees_destroy" 
     end
   end
   resources :designations

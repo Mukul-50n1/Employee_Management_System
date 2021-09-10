@@ -1,5 +1,6 @@
 class DesignationsController < ApplicationController
   before_action :authenticate_employer!
+  before_action :find_designation ,only: [:edit , :update , :destroy]
   def index 
     @designations =  Designation.all
   end
@@ -18,22 +19,28 @@ class DesignationsController < ApplicationController
   end
   
   def edit
-  	@designation = Designation.find(params[:id])
+
   end
 
   def update
-  	@designation = Designation.find(params[:id])
-  	@designation = @designation.update(param_designation)
-  	redirect_to '/designations'
+  	if @designation.update(param_designation)
+      flash[:notice] = "#{desig_name} is  updated!!!"
+  	  redirect_to '/designations'
+    else
+      render 'edit'
+    end
   end
 
   def destroy
-    @designation = Designation.find(params[:id]) 
     @designation.destroy
   end
 
   private
   def param_designation
   	params.require(:designation).permit(:desig_name)
+  end
+
+  def find_designation
+    @designation = Designation.find(params[:id]) 
   end
 end

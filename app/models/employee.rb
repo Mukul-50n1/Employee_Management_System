@@ -13,25 +13,33 @@ class Employee < ApplicationRecord
 
 	validates :first_name , :last_name ,presence: true ,format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,
     message: "only allows letters" }
-
-	# validates :mobile ,numericality: {only_integer: true ,presence: {strict:true} },length: {is: 10}
+  after_create  :registration_email
+	
 	validates :doj , :dob  ,presence: true
 	validates :email , presence: true ,uniqueness: true
-	#validates :password , confirmation: true,presence: true 
-	#validates :password_confirmation ,presence: true
-	# debugger
-	# scope :sea~rch_employee,-> (searchs){ where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "#{searchs}") }
+	
 
-	def self.search_employee(search)		
-      where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{search}%")    
-  end
-
-  def self.search_employee_with_designation(search , designate)
-  	where("designation_id IS :d AND first_name LIKE :q OR last_name LIKE :q OR email LIKE :q  " ,d: "#{designate}",q: "%#{search}%")
+	def self.search_employee(search , designate)	
+		if designate.nil? or designate == '0'	
+      where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{search}%")
+    else
+    	design = where("designation_id IS :d" ,d: "#{designate}")
+    	design.where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{search}%")
+    end
   end
 
 	private
 	def checking?(attr)
 		attr['country'].blank? and attr['state'].blank?  and attr['city'].blank? and attr['street_address'].blank?
 	end
+	def registration_email
+		
+		#EmployeeMailer.new_employee(self.employee).deliver
+	end
 end
+
+
+
+
+
+

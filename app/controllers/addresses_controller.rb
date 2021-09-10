@@ -1,17 +1,31 @@
 class AddressesController < ApplicationController
   before_action :authenticate_employer!
+  before_action :find_address , only: [:edit ,:update ,:destroy]
+
   def edit
-    @address = Address.find(params[:id])
+   
   end
 
   def update
-    @address = Address.find(params[:id])
-    @address.update(params.require(:address).permit(:address_types , :country , :city , :state , :street_address))
+    if @address.update(params_address)
+      flash[:notice] = "Your address is updated."
+      redirect_to '/'
+    else 
+      render 'edit'
   end
 
   def destroy
-    @address = Address.find(params[:id])
     @address.destroy
-    redirect_to "/employees/address/#{@address.employee_id}"
+    redirect_to "/employees/"
   end
+
+  private
+
+  def params_address
+    params.require(:address).permit(:address_types , :country , :city , :state , :street_address)
+  end
+
+  def find_address
+     @address = Address.find(params[:id])
+   end
 end

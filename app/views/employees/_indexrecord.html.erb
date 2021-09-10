@@ -1,3 +1,10 @@
+<% if @employees.blank? %>
+  
+  <div>
+    <h1 align="center" style="color:red"><%= "Record not Found.!" %></h1>
+  </div>
+  
+<% end %>
 <div class="container"> 
 <div class="row">
     <%  @employees.each do |epr|  %>

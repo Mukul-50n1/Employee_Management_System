@@ -1,13 +1,10 @@
 class EmployeesController < ApplicationController
   before_action :authenticate_employer!
-  before_action :employer_check ,only: [:edit ,:adda ,:update]
+  before_action :require_employee ,only: [:edit ,:adda ,:update]
 
   def index
-    if params[:designate].nil?
-      @employees = current_employer.employees.search_employee(params[:search]).page(params[:page])
-    else
-      @employees = current_employer.employees.search_employee_with_designation(params[:search], params[:designate]).page(params[:page])
-    end
+    @employees = current_employer.employees.search_employee(params[:search] , params[:designate])
+    @employees = @employees.page(params[:page])
   end
 
   def show  
@@ -16,14 +13,11 @@ class EmployeesController < ApplicationController
   def new   
     @employee = Employee.new
     2.times { @employee.addresses.new }
-    @first = "Current"
   end
 
   def create
     @employee = current_employer.employees.new(param_employee)
     if @employee.save   
-      EmployerMailer.with(employee: @employee).newEmployee.deliver
-      flash[:notice] = "#{@employee.first_name} is created"
       redirect_to '/employees'
     else 
       render 'new'
@@ -36,10 +30,10 @@ class EmployeesController < ApplicationController
 
   def update    
     if @employee.update(param_employee_update)   
-       flash[:notice] = "#{@employee.first_name} is updated" 
-       redirect_to '/'
+      flash[:notice] = "#{@employee.first_name} is updated" 
+      redirect_to '/'
     else 
-       render 'edit'
+      render 'edit'
     end 
   end
 
@@ -61,7 +55,7 @@ class EmployeesController < ApplicationController
     @group = current_employer.employees.group("designation_id")
   end
 
-  def employeesDestroy
+  def employees_destroy
     @employee_ids = params[:index_array]
     @id_size = params[:index_array].size
     @employee = Employee.where(id: @employee_ids)
@@ -82,10 +76,11 @@ class EmployeesController < ApplicationController
     params.require(:employee).permit(:first_name,:last_name,:mobile,:email,:dob,:doj)
   end
 
-  def employer_check  
-    unless (current_employer.employees.find(params[:id])).blank?
-      @employee = current_employer.employees.find(params[:id])
-    end
+  def require_employee  
+    @employee = current_employer.employees.find(params[:id])
   end
 
 end
+
+
+
