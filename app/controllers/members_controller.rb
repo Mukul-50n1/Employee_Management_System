@@ -2,15 +2,18 @@ class MembersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @members = Membership.where(user_id: current_user.id)
+    @members = Membership.where(user_id: current_user.id).order(:employer_id )
   end
 
   def new
-    @membership = Membership.new
+    @membership = Membership.new()
+    @employer_email = params[:employer_email]
+    $employerid = params[:employer_id]
   end
 
   def create
     @membership = Membership.new(param_member)
+    @membership.employer_id = $employerid
     user_verification
     if @membership.save
       redirect_to root_path

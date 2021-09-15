@@ -1,9 +1,13 @@
 class EmployersController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_employer , only: [:edit , :destroy]
+  before_action :require_employer , only: [:edit , :destroy ,:show]
 
   def index
     @employers = Employer.find(searching_employer)
+  end
+
+  def show
+
   end
 
   def new
