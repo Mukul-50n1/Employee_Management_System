@@ -1,0 +1,44 @@
+
+<h2><%= link_to 'given_access' , new_member_path %></h2>
+<h2><%= link_to 'Membership' , members_path %></h2>
+<div id="employers">
+<h3><%= link_to 'New_Employer' , new_employer_path %></h3>
+
+<h2>Employers</h2>
+<table border="1" id="employertable">
+	<tr align="center">
+		<th>Id</th>
+		<th>Name</th>
+		<th>email</th>
+		<th>Mobile</th>
+		<th>Date_of_birth</th>
+		<th>Date_of_joining</th>
+	</tr>
+<% @employers.each do |employer| %>
+<tr align="center">
+	<td align="center"><%= employer.id %> </td>
+	<td><%= employer.name %> 		</td>
+	<td><%= employer.email%> 		</td>
+	<td><%= employer.mobile %>	</td>
+	<td><%= employer.dob %>  		</td>
+	<td><%= employer.doj %>  		</td>
+</tr>
+<% end %>
+</table>
+</div>
+
+<style type="text/css">
+	#employertable{
+		font-size: 20px;
+		margin: 0px 80px;
+	}
+	table{
+		width: 1000px;
+	}
+	tr:nth-child(even){
+		background-color: #32a8a2;
+	}
+	td{
+		align: center;
+	}
+</style>

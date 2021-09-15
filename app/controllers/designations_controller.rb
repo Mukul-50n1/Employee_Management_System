@@ -1,5 +1,5 @@
 class DesignationsController < ApplicationController
-  before_action :authenticate_employer!
+  #before_action :authenticate_employer!
   before_action :find_designation ,only: [:edit , :update , :destroy]
   def index 
     @designations =  Designation.all

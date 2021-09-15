@@ -1,0 +1,7 @@
+<div id="employers">
+<h3><%= link_to 'New_Employer' , new_employer_path %></h3>
+<h2>Employers</h2>
+<% @employers.each do |employer| %>
+	<%= employer.name %><br>
+<% end %>
+</div>

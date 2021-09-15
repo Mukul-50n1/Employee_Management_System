@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email,:dob,:doj,:address ,:mobile,:password, :current_password)}
   end
 
+  def currents_employer
+     Employer.find(4)
+  end
+
   def permanent_address
     if params[:employee][:addresses_attributes][:'0'][:"chek"] == "1"
       params[:employee][:addresses_attributes][:'1'][:country] = params[:employee][:addresses_attributes][:'0'][:country]

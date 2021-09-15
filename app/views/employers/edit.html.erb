@@ -1,0 +1,23 @@
+<div id="form" align="center">
+<%= form_with model: @employer do |form| %>
+Name 	<%= form.text_field :name %><br><br>
+Email	<%= form.text_field :email %><br><br>
+Mobile	<%= form.text_field :mobile %><br><br>
+Address	<%= form.text_field :address %><br><br>
+Date of Birth	<%= form.date_field  :dob %><br><br>
+Date of Joining	<%= form.date_field  :doj %><br><br>
+<%= form.submit %>
+<% end %>
+</div>
+
+<style type="text/css">
+	#form{
+		align: center;
+		color: red;
+		border-style: solid;
+		padding: 20px 0px;
+		width: 250px;
+		margin-left: 450px;
+		margin-top: 100px;
+	}
+</style>

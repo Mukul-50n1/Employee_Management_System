@@ -1,0 +1,25 @@
+<table border='2'>
+<tr>
+	<th>Id</th>
+	<th>Roles</th>
+</tr>
+<% @roles.each do |rol| %>
+<tr>
+<td><%= rol.id %></td>
+<td><%= rol.role_name %></td>
+</tr>
+<% end %>
+
+</table>
+<style type="text/css">
+	table{
+		width: 100px;
+		column-width: 30px;
+		font-size: 30px;
+		margin: 30px;
+	}
+</style>
+<script type="text/javascript">
+	$('th').css('background',"#c634eb")
+	$('td:odd').css('background',"blue")
+</script>

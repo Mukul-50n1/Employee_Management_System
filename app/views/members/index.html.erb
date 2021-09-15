@@ -1,0 +1,27 @@
+<h1><%= link_to 'Given Access' , new_member_path %></h1>
+<div id="member" align="center">
+<h1>	Membership </h1>
+	<table border="2">
+		<tr>
+			<th>Current_user</th>
+			<th>User</th>
+			<th>Role</th>
+			<th>Employer-ID</th>
+		</tr>
+
+<% @members.each do |member| %>
+	<% role_name = Role.find(member.role_id) %>
+	<tr>
+		<td><%= member.user_id %> </td>
+		<td><%= member.user_role %> </td>
+		<td><%= role_name.role_name %> </td>
+		<td><%= member.employer_id %> </td>
+	</tr>
+	<% end %>
+</table>
+</div>
+<style type="text/css">
+	table{
+		font-size: 20px;
+	}
+</style>

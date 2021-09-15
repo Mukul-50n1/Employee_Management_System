@@ -1,0 +1,26 @@
+<h1><%= link_to 'Membership' , members_path %></h1>
+
+<div id="memberform">
+<%= form_with model: @member do |use| %>
+ User-Email	<%= use.text_field :user_role %> <br><br>
+ <% roles = Role.where.not(role_name: 'Admin') %>
+	<%= use.select :role_id ,options_for_select(roles.collect{|role| [role.role_name , role.id]}) %> <br><br>
+	Employer-ID<%= use.text_field :employer_id %><br><br>
+	<%= use.submit %>
+	<% if @member.errors.any? %>
+	  <% @member.errors.full_messages.each do |error| %>
+		  <%= error %>
+	  <% end %>
+	<% end %>
+<% end %>
+
+</div>
+<style type="text/css">
+	#memberform{
+		margin: 40px;
+		border: solid;
+		padding: 20px;
+		margin-right:240px ;
+		padding-left:90px ;
+	}	
+</style>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_01_141935) do
+ActiveRecord::Schema.define(version: 2021_09_14_110044) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -79,10 +79,6 @@ ActiveRecord::Schema.define(version: 2021_09_01_141935) do
 
   create_table "employers", force: :cascade do |t|
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
     t.string "name"
     t.string "mobile"
     t.string "address"
@@ -90,12 +86,49 @@ ActiveRecord::Schema.define(version: 2021_09_01_141935) do
     t.date "doj"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.index ["email"], name: "index_employers_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_employers_on_reset_password_token", unique: true
+    t.index ["user_id"], name: "index_employers_on_user_id"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.string "user_role"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "role_id"
+    t.integer "employer_id"
+    t.index ["employer_id"], name: "index_members_on_employer_id"
+    t.index ["role_id"], name: "index_members_on_role_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "role_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.integer "mobile"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "employees"
   add_foreign_key "employees", "employers"
+  add_foreign_key "employers", "users"
+  add_foreign_key "members", "employers"
+  add_foreign_key "members", "roles"
+  add_foreign_key "members", "users"
 end

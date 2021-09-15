@@ -1,9 +1,10 @@
 class EmployeesController < ApplicationController
-  before_action :authenticate_employer!
+  before_action :authenticate_user!
+
   before_action :require_employee ,only: [:edit ,:adda ,:update]
 
   def index
-    @employees = current_employer.employees.search_employee(params[:search] , params[:designate])
+    @employees = currents_employer.employees.search_employee(params[:search] , params[:designate])
     @employees = @employees.page(params[:page])
   end
 
@@ -16,7 +17,7 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    @employee = current_employer.employees.new(param_employee)
+    @employee = currents_employer.employees.new(param_employee)
     if @employee.save   
       redirect_to '/employees'
     else 
@@ -40,7 +41,7 @@ class EmployeesController < ApplicationController
   def destroy
     @identity = @employee.id
     @employee.destroy
-    @employees = current_employer.employees
+    @employees = currents_employer.employees
     #redirect_to '/employees'
     respond_to do |format|
       format.js 
@@ -52,7 +53,7 @@ class EmployeesController < ApplicationController
   end
 
   def grouping
-    @group = current_employer.employees.group("designation_id")
+    @group = currents_employer.employees.group("designation_id")
   end
 
   def employees_destroy
@@ -60,7 +61,7 @@ class EmployeesController < ApplicationController
     @id_size = params[:index_array].size
     @employee = Employee.where(id: @employee_ids)
     @employee.destroy_all
-    @employees = current_employer.employees
+    @employees = currents_employer.employees
     respond_to :js
   end
 
@@ -77,7 +78,7 @@ class EmployeesController < ApplicationController
   end
 
   def require_employee  
-    @employee = current_employer.employees.find(params[:id])
+    @employee = currents_employer.employees.find(params[:id])
   end
 
 end

@@ -1,5 +1,5 @@
 class AddressesController < ApplicationController
-  before_action :authenticate_employer!
+  #before_action :authenticate_employer!
   before_action :find_address , only: [:edit ,:update ,:destroy]
 
   def edit
