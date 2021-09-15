@@ -3,11 +3,7 @@ class EmployersController < ApplicationController
   before_action :require_employer , only: [:edit , :destroy]
 
   def index
-    mem = Member.where(user_role: current_user.id)
-    emp = mem.pluck(:employer_id)
-    emp1 = Employer.where(user_id: current_user.id )
-    arr = emp1.ids + emp
-    @employers = Employer.find(arr)
+    @employers = Employer.find(searching_employer)
   end
 
   def new
@@ -49,6 +45,14 @@ class EmployersController < ApplicationController
 
   def require_employer
     @employer = Employer.find(params[:id])
+  end
+
+  def searching_employer
+    mem = Membership.where(user_role: current_user.id)
+    emp = mem.pluck(:employer_id)
+    emp1 = Employer.where(user_id: current_user.id )
+    arr = emp1.ids + emp
+    return arr
   end
 
 end

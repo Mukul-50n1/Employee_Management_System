@@ -2,24 +2,20 @@ class MembersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @members = Member.where(user_id: current_user.id)
+    @members = Membership.where(user_id: current_user.id)
   end
 
   def new
-    @member = Member.new
+    @membership = Membership.new
   end
 
   def create
-    @member = Member.new(param_member)
-    userid = User.find_by_email(params[:member][:user_role])
-    unless userid.nil?
-      @member.user_id = current_user.id
-      @member.user_role = userid.id
-    end rescue render 'new', :alert => 'user was not found!'
-    if @member.save
+    @membership = Membership.new(param_member)
+    user_verification
+    if @membership.save
       redirect_to root_path
     else
-      @member.user_role = params[:member][:user_role]
+      @membership.user_role = params[:membership][:user_role]
       render 'new'
     end
   end
@@ -35,6 +31,14 @@ class MembersController < ApplicationController
 
   private
   def param_member
-    params.require(:member).permit(:user_role , :role_id ,:employer_id)
+    params.require(:membership).permit(:user_role , :role_id ,:employer_id)
+  end
+
+  def user_verification
+    userid = User.find_by_email(params[:membership][:user_role])
+    unless userid.nil?
+      @membership.user_id = current_user.id
+      @membership.user_role = userid.id
+    end rescue render 'new', :alert => 'user was not found!'
   end
 end

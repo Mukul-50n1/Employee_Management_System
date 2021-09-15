@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_14_110044) do
+ActiveRecord::Schema.define(version: 2021_09_15_062529) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -91,16 +91,16 @@ ActiveRecord::Schema.define(version: 2021_09_14_110044) do
     t.index ["user_id"], name: "index_employers_on_user_id"
   end
 
-  create_table "members", force: :cascade do |t|
+  create_table "memberships", force: :cascade do |t|
     t.string "user_role"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.integer "role_id"
     t.integer "employer_id"
-    t.index ["employer_id"], name: "index_members_on_employer_id"
-    t.index ["role_id"], name: "index_members_on_role_id"
-    t.index ["user_id"], name: "index_members_on_user_id"
+    t.index ["employer_id"], name: "index_memberships_on_employer_id"
+    t.index ["role_id"], name: "index_memberships_on_role_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 2021_09_14_110044) do
   add_foreign_key "addresses", "employees"
   add_foreign_key "employees", "employers"
   add_foreign_key "employers", "users"
-  add_foreign_key "members", "employers"
-  add_foreign_key "members", "roles"
-  add_foreign_key "members", "users"
+  add_foreign_key "memberships", "employers"
+  add_foreign_key "memberships", "roles"
+  add_foreign_key "memberships", "users"
 end

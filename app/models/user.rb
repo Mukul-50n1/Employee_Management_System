@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :members
+  has_many :memberships
   has_many :employers
   after_commit :create_admin
   # Include default devise modules. Others available are:
@@ -9,6 +9,6 @@ class User < ApplicationRecord
   private
   def create_admin
     usein = User.last.id
-    Member.create(user_id: usein,role_id: 4 ,user_role: usein)
+    Membership.create(user_id: usein,role_id: 4 ,user_role: usein)
   end
 end

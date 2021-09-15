@@ -1,14 +1,15 @@
 <h1><%= link_to 'Membership' , members_path %></h1>
 
 <div id="memberform">
-<%= form_with model: @member do |use| %>
+<%= form_with scope: :membership , model: @membership ,url: members_path do |use| %>
  User-Email	<%= use.text_field :user_role %> <br><br>
  <% roles = Role.where.not(role_name: 'Admin') %>
 	<%= use.select :role_id ,options_for_select(roles.collect{|role| [role.role_name , role.id]}) %> <br><br>
 	Employer-ID<%= use.text_field :employer_id %><br><br>
 	<%= use.submit %>
-	<% if @member.errors.any? %>
-	  <% @member.errors.full_messages.each do |error| %>
+	
+	<% if @membership.errors.any? %>
+	  <% @membership.errors.full_messages.each do |error| %>
 		  <%= error %>
 	  <% end %>
 	<% end %>

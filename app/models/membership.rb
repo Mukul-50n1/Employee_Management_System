@@ -1,4 +1,4 @@
-class Member < ApplicationRecord
+class Membership < ApplicationRecord
 	belongs_to :role
 	belongs_to :user
 	belongs_to :employer
@@ -8,9 +8,9 @@ class Member < ApplicationRecord
 	private
 	def member_validation
 		puts 'start_checking'
-		allcheck = Member.where('user_id IS ? AND role_id IS ? AND user_role IS ?AND employer_id IS ?',user_id,role_id,user_role,employer_id)
-		repeatrole = Member.where('role_id IS ? AND employer_id IS ? ',role_id,employer_id)
-		repeatuser = Member.where('employer_id IS ? AND user_role IS ? ',employer_id,user_role)
+		allcheck = Membership.where('user_id IS ? AND role_id IS ? AND user_role IS ?AND employer_id IS ?',user_id,role_id,user_role,employer_id)
+		repeatrole = Membership.where('role_id IS ? AND employer_id IS ? ',role_id,employer_id)
+		repeatuser = Membership.where('employer_id IS ? AND user_role IS ? ',employer_id,user_role)
 	
 		if !allcheck.blank?
 			errors.add(:user_role , 'this role has already accessed') 
