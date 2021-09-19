@@ -26,7 +26,7 @@ $(function(){
 });
 
 
-$(function(){
+$(function(){ 
   $('#designations').change(function(){
     var f = $("#designations").val();
     var search = $("#searchbox").val();

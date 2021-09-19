@@ -1,0 +1,50 @@
+<h2>
+Id  : <%= @employer.id %><br>
+Name : <%= @employer.name %><br> 		
+Email :<%= @employer.email%><br> 		
+Mobile <%= @employer.mobile %>	<br>
+Date of Birth : <%= @employer.dob %> <br>
+Date of Joining <%= @employer.doj %> <br>
+
+<br><br>
+<td><%= link_to 'given_access' ,new_member_path(:employer_id => @employer.id ,
+	:employer_email => @employer.email) %></td> 
+<br><br>
+<table border="2">
+		<tr>
+		
+			<th>User</th>
+			<th>Role</th>
+		
+		</tr>
+
+<% @members.each do |member| %>
+	<% role_name = Role.find(member.role_id) %>
+	<% user = User.find(member.user_role) %>
+	<tr>
+	
+		<td><%= user.email %> </td>
+		<td><%= role_name.role_name %> </td>
+		<td><%= button_to 'edit' ,edit_member_path(member.id) ,method: :get %></td>
+		<td><%= button_to 'destroy',member_path(member.id) ,method: :delete  %></td>
+
+	</tr>
+	<% end %>
+</table>
+</h2>
+
+<style type="text/css">
+	#employertable{
+		font-size: 20px;
+		margin: 0px 80px;
+	}
+	table{
+		width: 1000px;
+	}
+	tr:nth-child(even){
+		background-color: #32a8a2;
+	}
+	td{
+		align: center;
+	}
+</style>

@@ -9,14 +9,14 @@
 			<th>Employer-ID</th>
 		</tr>
 
-<% @members.each do |member| %>
-	<% role_name = Role.find(member.role_id) %>
-	<tr>
-		<td><%= member.user_id %> </td>
-		<td><%= member.user_role %> </td>
-		<td><%= role_name.role_name %> </td>
-		<td><%= member.employer_id %> </td>
-	</tr>
+  <% @members.each do |member| %>
+	  <% role_name = Role.find(member.role_id) %>
+	  <tr>
+		  <td><%= member.user_id %> </td>
+		  <td><%= member.user_role %> </td>
+		  <td><%= role_name.role_name %> </td>
+		  <td><%= member.employer_id %> </td>
+	  </tr>
 	<% end %>
 </table>
 </div>

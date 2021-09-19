@@ -2,8 +2,11 @@
 <h1><%= @employer_email %></h1>
 <div id="memberform">
 <%= form_with  model: @membership ,url: members_path do |use| %>
- User-Email	<%= use.text_field :user_role %> <br><br>
- <% roles = Role.where.not(role_name: 'Admin') %>
+
+  User-Email 
+  	<%= use.select :user_role , options_for_select(@user_email.collect{|user| [user] })%>   
+ <br><br>
+  <% roles = Role.where.not(role_name: 'Admin') %>
 	<%= use.select :role_id ,options_for_select(roles.collect{|role| [role.role_name , role.id]}) %> <br><br>
 	
 	<%= use.submit %>
@@ -24,4 +27,10 @@
 		margin-right:240px ;
 		padding-left:90px ;
 	}	
+	.userselect{
+		width: 50px;
+	}
 </style>
+
+
+

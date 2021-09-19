@@ -7,7 +7,8 @@ class EmployersController < ApplicationController
   end
 
   def show
-
+    @employer = Employer.find(params[:id])
+    @members = Membership.where(employer_id: params[:id])
   end
 
   def new

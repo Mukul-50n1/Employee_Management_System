@@ -9,6 +9,12 @@ class MembersController < ApplicationController
     @membership = Membership.new()
     @employer_email = params[:employer_email]
     $employerid = params[:employer_id]
+    @users = User.where('email LIKE ?', "%#{params[:search]}%")
+    @user_email = @users.pluck(:email)
+    respond_to do |format|
+      format.html
+      format.json { render json: {items: @user_email.map { |e| { text: e} }} }
+    end
   end
 
   def create
@@ -24,6 +30,9 @@ class MembersController < ApplicationController
   end
 
   def edit
+    debugger
+    puts 'working'
+    @member = Membership.find(params[:id])
   end
 
   def update

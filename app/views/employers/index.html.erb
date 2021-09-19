@@ -22,8 +22,9 @@
 	<td><%= employer.mobile %>	</td>
 	<td><%= employer.dob %>  		</td>
 	<td><%= employer.doj %>  		</td>
-	<td><%= link_to 'given_access' ,new_member_path(:employer_id => employer.id ,
-	:employer_email => employer.email) %></td>
+	<!-- <td><%#= link_to 'given_access' ,new_member_path(:employer_id => employer.id ,
+	:employer_email => employer.email) %></td> -->
+	<td> <%= link_to 'Detail' ,employer_path(employer.id) %> </td>
 </tr>
 <% end %>
 </table>
