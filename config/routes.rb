@@ -19,6 +19,5 @@ Rails.application.routes.draw do
   get "employees/address(/:id)" ,to: "employees#adda" ,as: 'adres'
 
   get "employees/grouping" ,to: "employees#grouping" 
-
-
+  
 end

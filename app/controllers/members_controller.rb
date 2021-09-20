@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_membership ,only: [:edit ,:update ,:destroy]
 
   def index
     @members = Membership.where(user_id: current_user.id).order(:employer_id )
@@ -30,20 +31,32 @@ class MembersController < ApplicationController
   end
 
   def edit
-    debugger
-    puts 'working'
-    @member = Membership.find(params[:id])
   end
 
-  def update
+  def update   
+    @member = @member.update(param_update)
+    if @member
+      redirect_to root_path
+    else
+      require_membership
+      render 'edit'
+    end
   end
 
   def destroy
+    @member.destroy
+    redirect_to root_path
   end
+
+
 
   private
   def param_member
     params.require(:membership).permit(:user_role , :role_id ,:employer_id)
+  end
+
+  def param_update
+    params.permit(:user_role , :role_id , :id ,:user_id ,:employer_id)
   end
 
   def user_verification
@@ -53,4 +66,9 @@ class MembersController < ApplicationController
       @membership.user_role = userid.id
     end rescue render 'new', :alert => 'user was not found!'
   end
+
+  def require_membership
+    @member = Membership.find(params[:id])
+  end
+  
 end
