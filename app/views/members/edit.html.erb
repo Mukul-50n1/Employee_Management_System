@@ -1,5 +1,4 @@
 <%= form_with  model: @membership ,url: member_path ,method: :patch do |use| %>
-	<% debugger %>
 	<% userrole = Role.find(@member.role_id) %>
 	<% user = User.find(@member.user_role) %>
 	<% alluser = User.all %>

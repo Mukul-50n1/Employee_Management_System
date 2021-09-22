@@ -6,6 +6,13 @@ Mobile <%= @employer.mobile %>	<br>
 Date of Birth : <%= @employer.dob %> <br>
 Date of Joining <%= @employer.doj %> <br>
 
+	<% current_employers(current_user.id , @employer.id) %>
+	<% if can? :read ,Membership %>
+	<div class="inline">
+	<%= button_to 'edit' ,edit_employer_path ,method: :get%> 
+	<%= button_to 'destroy' ,employer_path(@employer.id) ,method: :delete %>
+	<% end %>
+</div>
 <br><br>
 <td><%= link_to 'given_access' ,new_member_path(:employer_id => @employer.id ,
 	:employer_email => @employer.email) %></td> 
