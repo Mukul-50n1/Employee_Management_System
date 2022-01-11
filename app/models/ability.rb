@@ -4,13 +4,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    $user
     # @user = Membership.where(user_role: user.id , user_id: user.id)
     
-    if $user.role_id == 4 or $user.role_id == 1
-      can :manage , Membership
-    end
-
+    
     
     # Define abilities for the passed in user here. For example:
     #
