@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_062529) do
   end
 
   create_table "employees", force: :cascade do |t|
+    t.string "name"
     t.string "email"
     t.integer "mobile"
     t.date "dob"
@@ -69,8 +70,6 @@ ActiveRecord::Schema.define(version: 2021_09_15_062529) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "employer_id", null: false
-    t.string "first_name"
-    t.string "last_name"
     t.integer "designation_id"
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_employees_on_deleted_at"
