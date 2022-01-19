@@ -1,1 +1,18 @@
-<%= render 'form' %>
+<%= form_with  model: @membership ,url: member_path ,method: :patch do |use| %>
+	<% userrole = Role.find(@member.role_id) %>
+	<% user = User.find(@member.user_role) %>
+	<% alluser = User.all %>
+	<% @user_email = alluser.pluck(:email) %>
+
+	<%= use.hidden_field :user_id ,value: @member.user_id %>
+	<%= use.hidden_field :employer_id , value: @member.employer_id %>
+
+  User_Role :	
+  	<%= use.select :user_role , options_for_select(alluser.collect{|user| [user.email , user.id] }), {include_blank: true,:prompt => user.email}%> 
+
+  <% roles = Role.where.not(role_name: 'Admin') %>
+
+  <% userrole = Role.find(@member.role_id) %>
+	Role : <%= use.select :role_id ,options_for_select(roles.collect{|role| [role.role_name , role.id]}), {include_blank: true,:prompt => userrole.role_name} %> <br>
+	<%= use.submit %>
+<% end %>

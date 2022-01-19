@@ -31,6 +31,7 @@ $(document).ready(function() {
     placeholder: 'Select an option',
     tags: true,
     minimumInputLength: 3,
+    maximumInputLength: 29,
     width: '100%',
     ajax: {
       url: '/members/new',

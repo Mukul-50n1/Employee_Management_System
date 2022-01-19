@@ -4,6 +4,19 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def current_ability
+    @current_ability = Ability.new(current_user)
+  end
+
+  def currents_employer(id)
+    Employer.find(id)
+  end
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:warning] = exception.message
+    redirect_to root_path
+  end
+
   protected
 
   def configure_permitted_parameters
@@ -12,9 +25,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email,:dob,:doj,:address ,:mobile,:password, :current_password)}
   end
 
-  def currents_employer
-     Employer.find(4)
-  end
+
 
   def permanent_address
     if params[:employee][:addresses_attributes][:'0'][:"chek"] == "1"

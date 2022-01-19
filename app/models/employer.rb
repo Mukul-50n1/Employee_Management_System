@@ -1,8 +1,8 @@
 class Employer < ApplicationRecord
   has_many :employees ,dependent: :destroy
   belongs_to :user
-  has_many :memberships
-  after_commit :create_admin
+  has_many :memberships ,dependent: :destroy
+  after_create :create_admin
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   private

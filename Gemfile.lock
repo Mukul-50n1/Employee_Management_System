@@ -74,6 +74,7 @@ GEM
       sassc-rails (>= 2.0.0)
     builder (3.2.4)
     byebug (11.1.3)
+    cancancan (3.3.0)
     capybara (3.35.3)
       addressable
       mini_mime (>= 0.1.3)
@@ -96,7 +97,6 @@ GEM
     ffi (1.15.3)
     globalid (0.5.2)
       activesupport (>= 5.0)
-    hirb (0.6.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
@@ -239,9 +239,9 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   bootstrap (~> 5.1.0)
   byebug
+  cancancan
   capybara (>= 3.26)
   devise
-  hirb (~> 0.6.2)
   jbuilder (~> 2.7)
   kaminari
   listen (~> 3.3)
@@ -263,4 +263,4 @@ RUBY VERSION
    ruby 3.0.1p64
 
 BUNDLED WITH
-   2.2.23
+   2.2.33
