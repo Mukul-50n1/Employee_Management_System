@@ -1,8 +1,11 @@
+require 'intuit-oauth'
 class EmployersController < ApplicationController
   before_action :authenticate_user!
   before_action :require_employer , only: [:edit , :destroy ,:show]
 
   def index
+    @detail = Account.authorization_code_url.body
+    debugger
     @employers = Employer.find(searching_employer)
   end
 
@@ -10,6 +13,16 @@ class EmployersController < ApplicationController
     @employer = Employer.find(params[:id])
     @members = Membership.where(employer_id: params[:id])
   end
+
+  def acco
+    Account.authorization_code_url
+  end
+
+  def get_acco
+    get_bearer =  Account.client.token.get_bearer_token(params["code"])
+    debugger
+  end
+
 
   def new
     @employer = Employer.new

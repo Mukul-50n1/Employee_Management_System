@@ -1,7 +1,7 @@
 <h2><%= link_to 'given_access' , new_member_path %></h2>
 <h2><%= link_to 'Membership' , members_path %></h2>
 <div id="employers">
-<h3><%= link_to 'New_Employer' , new_employer_path %></h3>
+<h3><%#= link_to 'New_Employer' , employers_path %></h3>
 
 <h2>Employers</h2>
 <table border="1" id="employertable">
@@ -30,7 +30,7 @@
 	<!-- <td><%#= link_to 'given_access' ,new_member_path(:employer_id => employer.id ,
 	:employer_email => employer.email) %></td> -->
 	
-	  <td> <%= link_to 'Detail' ,employer_path(employer.id) %> </td>
+	  <td> <%#= link_to 'Detail' ,employer_path(employer.id) %> </td>
  </tr>
 <% end %>
 </table>
