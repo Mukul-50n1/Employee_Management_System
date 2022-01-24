@@ -4,7 +4,15 @@ Rails.application.routes.draw do
   #devise_for :employers
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   #root to: "employees#index"
-  resources :employers
+  resources :employers ,only: [] do
+    collection do
+      get :acco
+      get :get_acco
+      get :new
+    end
+  end
+
+
   resources :employees ,except: [:show] do
     collection do    
       delete "employees_destroy" 
