@@ -5,7 +5,7 @@ class EmployeesController < ApplicationController
 
   def index
     @employees = currents_employer.employees.search_employee(params[:search] , params[:designate])
-    @employees = @employees.page(params[:page])
+    @empl = @employees.page(params[:page])
   end
 
   def show  
@@ -69,7 +69,7 @@ class EmployeesController < ApplicationController
 
   def param_employee    
     permanent_address
-    params.require(:employee).permit(:first_name, :last_name , :email, :dob ,:mobile,
+    params.require(:employee).permit(:name , :email, :dob ,:mobile,
      :doj,:designation_id ,:image,addresses_attributes: [:address_types , :country, :state , :city , :street_address,:_destroy , :chek] )
   end
   

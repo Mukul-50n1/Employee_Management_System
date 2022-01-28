@@ -13,8 +13,8 @@ $(function(){
       console.log(index_array)
       if(confirm('You are removing employees record ?')){
         $.ajax({
-          url: "/employees/employees_destroy",
-          type: "DELETE", 
+          url: "/employees/employees_destroy.js",
+          type: "GET", 
           dataType: "script",
           data: {"index_array": index_array}
           // success: function(repsonse){...},

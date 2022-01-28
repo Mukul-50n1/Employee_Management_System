@@ -11,8 +11,8 @@ class Employee < ApplicationRecord
 	belongs_to :designation
 
 
-	validates :first_name , :last_name ,presence: true ,format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,
-    message: "only allows letters" }
+	#validates :first_name , :last_name ,presence: true ,format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,
+   # message: "only allows letters" }
   after_create  :registration_email
 	
 	validates :doj , :dob  ,presence: true
@@ -21,7 +21,7 @@ class Employee < ApplicationRecord
 
 	def self.search_employee(search , designate)	
 		if designate.nil? or designate == '0'	
-      where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{search}%")
+      where("name LIKE :q OR email LIKE :q " ,q: "%#{search}%")
     else
     	design = where("designation_id IS :d" ,d: "#{designate}")
     	design.where("first_name LIKE :q OR last_name LIKE :q OR email LIKE :q " ,q: "%#{search}%")
