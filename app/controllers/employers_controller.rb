@@ -4,8 +4,7 @@ class EmployersController < ApplicationController
   before_action :require_employer , only: [:edit , :destroy ,:show]
 
   def index
-    @detail = Account.authorization_code_url.body
-    debugger
+    #@detail = Account.authorization_code_url.body
     @employers = Employer.find(searching_employer)
   end
 
@@ -20,7 +19,7 @@ class EmployersController < ApplicationController
 
   def get_acco
     get_bearer =  Account.client.token.get_bearer_token(params["code"])
-    debugger
+   # debugger
   end
 
 
@@ -29,6 +28,7 @@ class EmployersController < ApplicationController
   end
 
   def create
+    debugger
     @employer =  Employer.new(param_employer)
     @employer.user_id = current_user.id
     if @employer.save
@@ -74,3 +74,25 @@ class EmployersController < ApplicationController
   end
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

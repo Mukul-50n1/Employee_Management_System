@@ -11,25 +11,15 @@
 <%= form.select :designation_id , options_for_select(Designation.all.collect{|p| [p.desig_name,p.id]}) %>
 
 <div class="form-group" >
-  First_Name => <%= form.text_field  :first_name ,{ class: "form-control"}%>
+  First_Name => <%= form.text_field  :name ,{ class: "form-control"}%>
 
   <span style="font-color:red;" id = "fspan"></span> 
 
-  <% @employee.errors.full_messages_for(:first_name).each do |message| %>
+  <% @employee.errors.full_messages_for(:name).each do |message| %>
     <div><%= message %></div>
   <% end %>
 </div>
 
-  
-  <div class="form-group">
-  Last_Name => <%= form.text_field  :last_name , { class: "form-control"}%>
-
-  <span id="lspan"></span>
-  <% @employee.errors.full_messages_for(:last_name).each do |message| %>
-
-    <div><%= message %></div>
-  <% end %>
-</div>
   
 
 

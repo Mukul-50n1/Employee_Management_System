@@ -14,7 +14,7 @@ class MembersController < ApplicationController
     @user_email = @users.pluck(:email)
     respond_to do |format|
       format.html
-      format.json { render json: {items: @user_email.map { |e| { text: e} }} }
+      format.json { render @users }
     end
   end
 

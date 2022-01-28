@@ -1,10 +1,11 @@
-<% if @employees.blank? %>
+<h3><%= link_to 'New_Employee' , new_employee_path %></h3>
+<%# if @employees.blank? %>
   
-  <div>
-    <h1 align="center" style="color:red"><%= "Record not Found.!" %></h1>
+<!--   <div>
+    <h1 align="center" style="color:red"><%#= "Record not Found.!" %></h1>
   </div>
-  
-<% end %>
+   -->
+<%# end %>
 <div class="container"> 
 <div class="row">
     <%  @employees.each do |epr|  %>
@@ -18,8 +19,8 @@
         <% end %>
         <div class="card-body"  >
           <%= epr.id %>
-          <h4 class="card-title"> <%= epr.first_name %>
-                 <%= epr.last_name %><br>
+          <h4 class="card-title"> <%= epr.name %>
+               
                  <div style="color:greenyellow;">(<%= @de.desig_name %>)</div></h4><br>
                   <table style="border:solid currentColor;">
                     <tr>
@@ -50,7 +51,7 @@
 <% end %>
 </div> </div>
     
-   <div align="center"> <%= paginate @employees %></div>
+   <div align="center"> <%= paginate @empl %></div>
 
 
 

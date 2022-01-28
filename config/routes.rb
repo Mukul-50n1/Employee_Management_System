@@ -9,13 +9,14 @@ Rails.application.routes.draw do
       get :acco
       get :get_acco
       get :new
+      post :create
     end
   end
 
 
   resources :employees ,except: [:show] do
     collection do    
-      delete "employees_destroy" 
+      get "employees_destroy"
     end
   end
   resources :members

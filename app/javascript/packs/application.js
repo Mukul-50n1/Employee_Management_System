@@ -29,9 +29,9 @@ import '../stylesheets/application'
 $(document).ready(function() {
   $('#membership_user_role').select2({
     placeholder: 'Select an option',
-    tags: true,
     minimumInputLength: 3,
     maximumInputLength: 29,
+    tags: true,
     width: '100%',
     ajax: {
       url: '/members/new',
@@ -46,10 +46,17 @@ $(document).ready(function() {
         return query;
       },
       processResults: function (data) {
+        var results = [];
+        $.each(data, function (index, business) {
+          results.push({
+            id: business.id,
+            text: business.name
+          });
+        });
         return {
-         results: data.items
-        };
-      } 
+          "results":results
+        };        
+      }
     }                           
   });
 });
