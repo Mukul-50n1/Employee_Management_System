@@ -3,7 +3,6 @@ class AddressesController < ApplicationController
   before_action :find_address , only: [:edit ,:update ,:destroy]
 
   def edit
-   
   end
 
   def update
@@ -22,7 +21,7 @@ class AddressesController < ApplicationController
   private
 
   def params_address
-    params.require(:address).permit(:address_types , :country , :city , :state , :street_address)
+    params.require(:address).permit(:address_types,:country,:city,:state,:street_address)
   end
 
   def find_address
