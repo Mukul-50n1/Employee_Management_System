@@ -7,7 +7,6 @@ class Membership < ApplicationRecord
 
 	private
 	def member_validation
-		puts 'start_checking'
 		allcheck = Membership.where('user_id IS ? AND role_id IS ? AND user_role IS ?AND employer_id IS ?',user_id,role_id,user_role,employer_id)
 		repeatrole = Membership.where('role_id IS ? AND employer_id IS ? ',role_id,employer_id)
 		repeatuser = Membership.where('employer_id IS ? AND user_role IS ? ',employer_id,user_role)
